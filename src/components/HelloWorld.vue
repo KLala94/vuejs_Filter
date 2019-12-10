@@ -6,9 +6,9 @@
          <button class="blueButton" v-on:click='changeColor("blue")'>Blue</button>
          <button class="yellowButton" v-on:click='changeColor("yellow")'>Yellow</button>
          <button class="purpleButton" v-on:click='changeColor("purple")'>Purple</button>
-    <div v-for="item in list" 
+    <div v-for="item in ifColor" 
     :key="item.id">
-    <div class="items" v-if="ifColor == '' || item.color == ifColor ">
+    <div class="items" >
     <p>The color is: {{item.color}}</p>
     <p>The price is: {{item.price}}</p>
     </div>
@@ -51,7 +51,8 @@ export default {
   },
   methods:{
     changeColor(e){
-    return this.ifColor = e
+      this.ifColor = this.list;
+    this.ifColor.filter(i => i.color= e.value)
       
     }
   }
