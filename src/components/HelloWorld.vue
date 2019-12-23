@@ -1,12 +1,12 @@
 <template>
   <div class="hello">
     <div class="HelloWorld">
-       <button class="allButton" v-on:click='changeColor("")'>all</button>
-         <button class="redButton" v-on:click='changeColor("red")'>Red</button>
-         <button class="blueButton" v-on:click='changeColor("blue")'>Blue</button>
-         <button class="yellowButton" v-on:click='changeColor("yellow")'>Yellow</button>
-         <button class="purpleButton" v-on:click='changeColor("purple")'>Purple</button>
-    <div v-for="item in ifColor" 
+       <button class="allButton" v-on:click='changeColor="all"'>all</button>
+         <button class="redButton" v-on:click='changeColor="red"'>Red</button>
+         <button class="blueButton" v-on:click='changeColor="blue"'>Blue</button>
+         <button class="yellowButton" v-on:click='changeColor="yellow"'>Yellow</button>
+         <button class="purpleButton" v-on:click='changeColor="purple"'>Purple</button>
+    <div v-for="item in colorFilter" 
     :key="item.id">
     <div class="items" >
     <p>The color is: {{item.color}}</p>
@@ -19,8 +19,11 @@
 </template>
 
 <script>
+import Vue2Filters from 'vue2-filters'
 export default {
   name: 'HelloWorld',
+
+  mixins: [Vue2Filters.mixin],
   props: {
   },
   data: function(){
@@ -46,17 +49,42 @@ export default {
         color : "purple",
         price : 1000
     }],
-    ifColor : ''
+    changeColor : 'all'
+    }
+  },
+  computed:{
+    colorFilter() {
+      return this[this.changeColor]
+    },
+    all() {
+      return this.list
+    },
+    red() {
+  return this.list.filter(item => item.color === 'red')
+    },
+    yellow() {
+  return this.list.filter(item => item.color === 'yellow')
+    },
+    purple() {
+  return this.list.filter(item => item.color === 'purple')
+    },
+    blue() {
+  return this.list.filter(item => item.color === 'blue')
     }
   },
   methods:{
-    changeColor(e){
-      this.ifColor = this.list;
-    this.ifColor.filter(i => i.color= e.value)
+    // changeColor(e){
+      // this.ifColor = this.list;
+      // this.ifColor.map(items => {if (items.color === e.value){
+      //   return items
+      // } else {
+      //   return null
+      // }
+    // this.list.filter(i => i.color === e.value);
       
-    }
-  }
-}
+    // })
+  // }
+}}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
